@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de Crédito Hipotecario - Colombia</title>
+    <title>Multi-Calculadora de Créditos Colombia (V2.0)</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -13,188 +13,307 @@
             font-family: 'Inter', sans-serif;
         }
         body {
-            background-color: #f4f6f9;
-            color: #333;
+            background-color: #0f172a;
+            color: #f1f5f9;
             padding: 20px;
         }
         .container {
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 0 auto;
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            background: #1e293b;
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            border: 1px solid #334155;
         }
         header {
             text-align: center;
-            margin-bottom: 30px;
-            border-bottom: 2px solid #eef2f5;
-            padding-bottom: 20px;
+            margin-bottom: 35px;
+            border-bottom: 1px solid #334155;
+            padding-bottom: 25px;
         }
-        h1 { color: #1e3a8a; font-size: 24px; margin-bottom: 8px; }
-        p.subtitle { color: #666; font-size: 14px; }
+        h1 { color: #38bdf8; font-size: 28px; margin-bottom: 8px; }
+        p.subtitle { color: #94a3b8; font-size: 14px; }
+        .badge {
+            background: #0284c7;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            vertical-align: middle;
+            margin-left: 8px;
+        }
         .grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 35px;
         }
-        @media (max-width: 768px) { .grid { grid-template-columns: 1fr; } }
+        @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 22px;
         }
         label {
             display: block;
             margin-bottom: 8px;
             font-weight: 500;
-            color: #4a5568;
+            color: #94a3b8;
             font-size: 14px;
         }
         input, select {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #cbd5e1;
-            border-radius: 6px;
-            font-size: 16px;
-            background-color: #f8fafc;
+            padding: 12px 14px;
+            border: 1px solid #475569;
+            border-radius: 8px;
+            font-size: 15px;
+            background-color: #0f172a;
+            color: white;
+            transition: all 0.3s;
         }
         input:focus, select:focus {
             outline: none;
-            border-color: #3b82f6;
-            background-color: #fff;
+            border-color: #38bdf8;
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
         }
         .results-box {
-            background-color: #f8fafc;
-            border-radius: 8px;
-            padding: 20px;
-            border-left: 4px solid #1e3a8a;
+            background-color: #0f172a;
+            border-radius: 12px;
+            padding: 25px;
+            border-top: 4px solid #38bdf8;
         }
         .result-item {
             display: flex;
             justify-content: space-between;
-            padding: 12px 0;
-            border-bottom: 1px solid #e2e8f0;
+            padding: 14px 0;
+            border-bottom: 1px solid #334155;
         }
         .result-item:last-child { border-bottom: none; }
-        .result-label { font-weight: 500; color: #64748b; }
-        .result-value { font-weight: 700; color: #0f172a; font-size: 18px; }
-        .highlight { color: #10b981; }
-        .info-text {
-            font-size: 12px;
-            color: #64748b;
-            margin-top: 15px;
-            line-height: 1.5;
+        .result-label { font-weight: 500; color: #94a3b8; }
+        .result-value { font-weight: 700; color: #f8fafc; font-size: 18px; }
+        .highlight { color: #34d399; font-size: 22px; }
+        .info-card {
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-size: 13px;
+            color: #cbd5e1;
+            line-height: 1.6;
+        }
+        .tabs-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            background: #0f172a;
+            padding: 6px;
+            border-radius: 8px;
+        }
+        .tab-btn {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            padding: 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        .tab-btn.active {
+            background: #38bdf8;
+            color: #0f172a;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Calculadora de Crédito Hipotecario</h1>
-            <p class="subtitle">Proyección básica para adquisición de vivienda en el contexto colombiano (Pesos / UVR)</p>
+            <h1>Simulador Multicrédito Colombiano <span class="badge">V2.0 PRO</span></h1>
+            <p class="subtitle">Simulación avanzada: Vivienda, Vehículo, Consumo y Tarjetas con tasas de usura y seguros estimados</p>
         </header>
+
+        <div class="tabs-container">
+            <button class="tab-btn active" onclick="cambiarTipo('hipotecario')">🏠 Hipotecario / Leasing</button>
+            <button class="tab-btn" onclick="cambiarTipo('vehiculo')">🚗 Vehículo</button>
+            <button class="tab-btn" onclick="cambiarTipo('libre')">💰 Libre Inversión</button>
+            <button class="tab-btn" onclick="cambiarTipo('tarjeta')">💳 Tarjeta de Crédito</button>
+        </div>
         
         <div class="grid">
             <div>
                 <div class="form-group">
-                    <label for="valorVivienda">Valor del Inmueble ($ COP)</label>
-                    <input type="number" id="valorVivienda" value="200000000" step="10000000">
+                    <label id="lblMonto" for="montoPrincipal">Monto Total del Crédito / Valor Inmueble ($ COP)</label>
+                    <input type="number" id="montoPrincipal" value="150000000" step="5000000">
                 </div>
-                <div class="form-group">
-                    <label for="cuotaInicial">Cuota Inicial (Mínimo 30% - $ COP)</label>
-                    <input type="number" id="cuotaInicial" value="60000000" step="5000000">
+                
+                <div class="form-group" id="divCuotaInicial">
+                    <label for="cuotaInicial">Cuota Inicial ($ COP)</label>
+                    <input type="number" id="cuotaInicial" value="45000000" step="5000000">
                 </div>
-                <div class="form-group">
-                    <label for="tipoSistema">Sistema de Amortización</label>
+
+                <div class="form-group" id="divAmortizacion">
+                    <label for="tipoSistema">Modalidad de Moneda</label>
                     <select id="tipoSistema">
-                        <option value="pesos">Pesos (Cuota Fija)</option>
-                        <option value="uvr">UVR (Sujeto a inflación)</option>
+                        <option value="pesos">Pesos Colombianos (Cuota Fija)</option>
+                        <option value="uvr">UVR (Indexado a Inflación / IPC)</option>
                     </select>
                 </div>
+
                 <div class="form-group">
-                    <label for="tasaAnual">Tasa de Interés Efectiva Anual (E.A. %)</label>
-                    <input type="number" id="tasaAnual" value="12.5" step="0.1" min="1" max="30">
+                    <label for="tasaAnual">Tasa de Interés Nominal/Efectiva Propuesta (E.A. %)</label>
+                    <input type="number" id="tasaAnual" value="11.8" step="0.05">
                 </div>
+
                 <div class="form-group">
-                    <label for="plazoAnios">Plazo en Años (Hipotecario: 5 a 30 años)</label>
-                    <input type="number" id="plazoAnios" value="15" min="5" max="30">
+                    <label id="lblPlazo" for="plazo">Plazo de Amortización (Meses)</label>
+                    <input type="number" id="plazo" value="180" min="1" max="360">
+                </div>
+
+                <div class="form-group">
+                    <label for="seguroMes">Seguro de Vida Obligatorio + Todo Riesgo Estimado (Mensual $ COP)</label>
+                    <input type="number" id="seguroMes" value="45000" step="5000">
                 </div>
             </div>
             
             <div>
-                <h2 style="font-size: 18px; margin-bottom: 15px; color: #1e3a8a;">Resumen del Crédito</h2>
+                <h2 style="font-size: 18px; margin-bottom: 15px; color: #38bdf8;">Análisis Financiero del Escenario</h2>
                 <div class="results-box">
                     <div class="result-item">
-                        <span class="result-label">Monto a Financiar (70% recomendado)</span>
-                        <span class="result-value" id="montoFinanciar">$ 0</span>
+                        <span class="result-label">Capital Neto a Financiar</span>
+                        <span class="result-value" id="resFinanciar">$ 0</span>
                     </div>
                     <div class="result-item">
-                        <span class="result-label">Tasa Mensual Equivalente (M.V.)</span>
-                        <span class="result-value" id="tasaMensual">0.00%</span>
+                        <span class="result-label">Tasa Periódica Mes Vencido (M.V.)</span>
+                        <span class="result-value" id="resTasaMes">0.00%</span>
                     </div>
                     <div class="result-item">
-                        <span class="result-label">Cuota Mensual Estimada (Mes 1)</span>
-                        <span class="result-value highlight" id="cuotaMensual">$ 0</span>
+                        <span class="result-label">Cuota Base (Solo Capital + Interés)</span>
+                        <span class="result-value" id="resCuotaBase">$ 0</span>
                     </div>
                     <div class="result-item">
-                        <span class="result-label">Total Intereses Estimados</span>
-                        <span class="result-value" id="totalIntereses">$ 0</span>
+                        <span class="result-label">Seguros Mensuales Adicionados</span>
+                        <span class="result-value" id="resSeguro">$ 0</span>
+                    </div>
+                    <div class="result-item" style="background: rgba(52, 211, 153, 0.05); padding: 10px; border-radius: 6px;">
+                        <span class="result-label" style="color: #34d399; font-weight: 600;">CUOTA MENSUAL TOTAL</span>
+                        <span class="result-value highlight" id="resCuotaTotal">$ 0</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Costo Total de Intereses Generados</span>
+                        <span class="result-value" id="resIntereses">$ 0</span>
                     </div>
                 </div>
-                <p class="info-text">
-                    * Nota: Esta es la Versión 1.0 enfocada exclusivamente en créditos de vivienda. No incluye seguros obligatorios (vida/incendio) ni costos de escrituración. En el caso de UVR, la cuota varía según el comportamiento de la inflación colombiana (IPC).
-                </p>
+                
+                <div class="info-card" id="infoDinamica">
+                    <strong>Análisis del Sistema:</strong> Los créditos hipotecarios en Colombia permiten plazos amplios y tasas competitivas. Recuerde validar si aplica a subsidios del gobierno (Mi Casa Ya / Cobertura FRECH).
+                </div>
             </div>
         </div>
     </div>
 
     <script>
-        function calcularCredito() {
-            const valorVivienda = parseFloat(document.getElementById('valorVivienda').value) || 0;
-            const cuotaInicial = parseFloat(document.getElementById('cuotaInicial').value) || 0;
-            const tipoSistema = document.getElementById('tipoSistema').value;
-            let tasaAnual = parseFloat(document.getElementById('tasaAnual').value) || 0;
-            const plazoAnios = parseInt(document.getElementById('plazoAnios').value) || 0;
+        let tipoCreditoActivo = 'hipotecario';
 
-            const montoFinanciar = valorVivienda - cuotaInicial;
-            document.getElementById('montoFinanciar').textContent = '$ ' + montoFinanciar.toLocaleString('es-CO');
+        function cambiarTipo(tipo) {
+            tipoCreditoActivo = tipo;
+            
+            // Actualizar botones de pestañas
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
 
-            if (montoFinanciar <= 0 || plazoAnios <= 0 || tasaAnual <= 0) {
-                document.getElementById('cuotaMensual').textContent = "$ 0";
-                document.getElementById('totalIntereses').textContent = "$ 0";
+            // Modificar visibilidad y valores sugeridos según la modalidad colombiana estándar
+            const divCuotaInicial = document.getElementById('divCuotaInicial');
+            const divAmortizacion = document.getElementById('divAmortizacion');
+            const lblMonto = document.getElementById('lblMonto');
+            const lblPlazo = document.getElementById('lblPlazo');
+            
+            if (tipo === 'hipotecario') {
+                lblMonto.textContent = "Valor del Inmueble ($ COP)";
+                lblPlazo.textContent = "Plazo de Amortización (Meses)";
+                divCuotaInicial.style.display = 'block';
+                divAmortizacion.style.display = 'block';
+                document.getElementById('montoPrincipal').value = "150000000";
+                document.getElementById('cuotaInicial').value = "45000000";
+                document.getElementById('tasaAnual').value = "11.5";
+                document.getElementById('plazo').value = "240";
+                document.getElementById('seguroMes').value = "55000";
+                document.getElementById('infoDinamica').innerHTML = "<strong>Análisis del Sistema:</strong> Financiamiento máx del 70% para vivienda NO VIS y 80% para VIS. Estabilidad a largo plazo mediante cuotas fijas en pesos.";
+            } else if (tipo === 'vehiculo') {
+                lblMonto.textContent = "Monto a Financiar el Vehículo ($ COP)";
+                lblPlazo.textContent = "Plazo de Amortización (Meses)";
+                divCuotaInicial.style.display = 'none';
+                divAmortizacion.style.display = 'none';
+                document.getElementById('montoPrincipal').value = "60000000";
+                document.getElementById('tasaAnual').value = "15.5";
+                document.getElementById('plazo').value = "72";
+                document.getElementById('seguroMes').value = "80000"; // Incluye póliza auto todo riesgo endosada
+                document.getElementById('infoDinamica').innerHTML = "<strong>Análisis del Sistema:</strong> El crédito de vehículo suele exigir pignoración del automotor. Las tasas varían si el carro es nuevo o usado.";
+            } else if (tipo === 'libre') {
+                lblMonto.textContent = "Monto del Crédito de Consumo ($ COP)";
+                lblPlazo.textContent = "Plazo Solicitado (Meses)";
+                divCuotaInicial.style.display = 'none';
+                divAmortizacion.style.display = 'none';
+                document.getElementById('montoPrincipal').value = "20000000";
+                document.getElementById('tasaAnual').value = "22.0";
+                document.getElementById('plazo').value = "48";
+                document.getElementById('seguroMes').value = "15000";
+                document.getElementById('infoDinamica').innerHTML = "<strong>Análisis del Sistema:</strong> Libre inversión/Consumo. Tasas más elevadas sujetas al perfil de riesgo. Alerta con la tasa de usura fijada por la Superfinanciera.";
+            } else if (tipo === 'tarjeta') {
+                lblMonto.textContent = "Cupo Utilizado / Avance / Compra ($ COP)";
+                lblPlazo.textContent = "Diferido a Cuotas (Meses)";
+                divCuotaInicial.style.display = 'none';
+                divAmortizacion.style.display = 'none';
+                document.getElementById('montoPrincipal').value = "5000000";
+                document.getElementById('tasaAnual').value = "28.5"; // Cercano a la usura habitual de tarjetas
+                document.getElementById('plazo').value = "24";
+                document.getElementById('seguroMes').value = "6000"; // Seguro de cartera común
+                document.getElementById('infoDinamica').innerHTML = "<strong>Análisis del Sistema:</strong> Compras diferidas a 1 sola cuota por lo general no generan intereses corrientes en Colombia. Evite los avances en efectivo debido a su alto costo inmediato.";
+            }
+            
+            calcularTodo();
+        }
+
+        function calcularTodo() {
+            const montoPrincipal = parseFloat(document.getElementById('montoPrincipal').value) || 0;
+            const cuotaInicial = tipoCreditoActivo === 'hipotecario' ? (parseFloat(document.getElementById('cuotaInicial').value) || 0) : 0;
+            const tasaAnual = parseFloat(document.getElementById('tasaAnual').value) || 0;
+            const plazo = parseInt(document.getElementById('plazo').value) || 0;
+            const seguroMes = parseFloat(document.getElementById('seguroMes').value) || 0;
+
+            const capitalFinanciar = montoPrincipal - cuotaInicial;
+            document.getElementById('resFinanciar').textContent = '$ ' + capitalFinanciar.toLocaleString('es-CO');
+
+            if (capitalFinanciar <= 0 || plazo <= 0 || tasaAnual <= 0) {
+                document.getElementById('resCuotaBase').textContent = "$ 0";
+                document.getElementById('resCuotaTotal').textContent = "$ 0";
+                document.getElementById('resIntereses').textContent = "$ 0";
                 return;
             }
 
-            // Convertir Tasa Efectiva Anual (E.A.) a Mensual Vencida (M.V.)
+            // Convertir de Efectiva Anual (E.A) a Mensual Vencida (M.V)
             const tasaMensual = Math.pow(1 + (tasaAnual / 100), 1 / 12) - 1;
-            document.getElementById('tasaMensual').textContent = (tasaMensual * 100).toFixed(2) + '%';
+            document.getElementById('resTasaMes').textContent = (tasaMensual * 100).toFixed(2) + '%';
 
-            const nMeses = plazoAnios * 12;
-            let cuota = 0;
-            let totalIntereses = 0;
+            // Cálculo de la cuota base usando amortización constante (sistema francés)
+            const cuotaBase = (capitalFinanciar * tasaMensual) / (1 - Math.pow(1 + tasaMensual, -plazo));
+            const cuotaTotal = cuotaBase + seguroMes;
+            const totalIntereses = (cuotaBase * plazo) - capitalFinanciar;
 
-            if (tipoSistema === 'pesos') {
-                // Fórmula de cuota fija (Amortización Francesa)
-                cuota = (montoFinanciar * tasaMensual) / (1 - Math.pow(1 + tasaMensual, -nMeses));
-                totalIntereses = (cuota * nMeses) - montoFinanciar;
-            } else {
-                // Simulación UVR simple: Cuota constante en UVR (base indexada estimada)
-                // En la práctica la UVR se actualiza diario con IPC, aquí simulamos el equivalente inicial
-                cuota = (montoFinanciar * tasaMensual) / (1 - Math.pow(1 + tasaMensual, -nMeses));
-                // Proyección base sin incluir la inflación futura acumulada
-                totalIntereses = (cuota * nMeses) - montoFinanciar; 
-            }
-
-            document.getElementById('cuotaMensual').textContent = '$ ' + Math.round(cuota).toLocaleString('es-CO');
-            document.getElementById('totalIntereses').textContent = '$ ' + Math.round(totalIntereses).toLocaleString('es-CO');
+            document.getElementById('resCuotaBase').textContent = '$ ' + Math.round(cuotaBase).toLocaleString('es-CO');
+            document.getElementById('resSeguro').textContent = '$ ' + Math.round(seguroMes).toLocaleString('es-CO');
+            document.getElementById('resCuotaTotal').textContent = '$ ' + Math.round(cuotaTotal).toLocaleString('es-CO');
+            document.getElementById('resIntereses').textContent = '$ ' + Math.round(totalIntereses).toLocaleString('es-CO');
         }
 
-        // Eventos
+        // Listener para recálculo dinámico en cualquier interacción
         document.querySelectorAll('input, select').forEach(element => {
-            element.addEventListener('input', calcularCredito);
+            element.addEventListener('input', calcularTodo);
         });
 
-        // Inicializar
-        calcularCredito();
+        // Inicialización en la carga original
+        calcularTodo();
     </script>
 </body>
 </html>
